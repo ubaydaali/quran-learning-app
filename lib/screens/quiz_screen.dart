@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'dart:math';
 import '../models/quran_model.dart';
 import '../providers/progress_provider.dart';
 
@@ -27,7 +26,6 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   List<QuizQuestion> _generateQuestions() {
-    // Sample quiz questions about the surah
     return [
       QuizQuestion(
         question: 'What is the English meaning of "${widget.surah.arabicName}"?',
@@ -80,18 +78,6 @@ class _QuizScreenState extends State<QuizScreen> {
         correctAnswer: 'Chapter',
       ),
     ];
-
-    // Shuffle options
-    _questions = _questions.map((q) {
-      final shuffled = List<String>.from(q.options)..shuffle();
-      return QuizQuestion(
-        question: q.question,
-        options: shuffled,
-        correctAnswer: q.correctAnswer,
-      );
-    }).toList();
-
-    return _questions;
   }
 
   void _answerQuestion(String answer) {
@@ -100,7 +86,7 @@ class _QuizScreenState extends State<QuizScreen> {
         _answered = true;
         _selectedAnswer = answer;
         if (answer == _questions[_currentQuestion].correctAnswer) {
-          _score += 20; // 5 questions = 100%
+          _score += 20;
         }
       });
     }
@@ -126,7 +112,6 @@ class _QuizScreenState extends State<QuizScreen> {
         final percentage = _score;
         final provider = context.read<ProgressProvider>();
 
-        // Save progress
         provider.saveProgress(widget.surah.id, percentage);
 
         return Dialog(
@@ -138,7 +123,6 @@ class _QuizScreenState extends State<QuizScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Score Icon
                 Container(
                   width: 80,
                   height: 80,
@@ -153,8 +137,6 @@ class _QuizScreenState extends State<QuizScreen> {
                   ),
                 ),
                 const SizedBox(height: 20),
-
-                // Title
                 Text(
                   percentage >= 70 ? 'Excellent!' : 'Good Effort!',
                   style: const TextStyle(
@@ -163,8 +145,6 @@ class _QuizScreenState extends State<QuizScreen> {
                   ),
                 ),
                 const SizedBox(height: 12),
-
-                // Score
                 Text(
                   'Your Score: $percentage%',
                   style: const TextStyle(
@@ -174,8 +154,6 @@ class _QuizScreenState extends State<QuizScreen> {
                   ),
                 ),
                 const SizedBox(height: 12),
-
-                // Message
                 Text(
                   percentage >= 70
                       ? 'You have successfully completed this lesson!'
@@ -187,8 +165,6 @@ class _QuizScreenState extends State<QuizScreen> {
                   ),
                 ),
                 const SizedBox(height: 24),
-
-                // Buttons
                 Row(
                   children: [
                     Expanded(
@@ -238,7 +214,6 @@ class _QuizScreenState extends State<QuizScreen> {
       ),
       body: Column(
         children: [
-          // Progress Bar
           Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -279,15 +254,12 @@ class _QuizScreenState extends State<QuizScreen> {
               ],
             ),
           ),
-
-          // Question
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Question Text
                   Text(
                     question.question,
                     style: const TextStyle(
@@ -296,11 +268,8 @@ class _QuizScreenState extends State<QuizScreen> {
                     ),
                   ),
                   const SizedBox(height: 32),
-
-                  // Options
                   ...question.options.map((option) {
-                    final isCorrect =
-                        option == question.correctAnswer;
+                    final isCorrect = option == question.correctAnswer;
                     final isSelected = option == _selectedAnswer;
 
                     Color? backgroundColor;
@@ -358,9 +327,7 @@ class _QuizScreenState extends State<QuizScreen> {
                               ),
                               if (_answered)
                                 Icon(
-                                  isCorrect
-                                      ? Icons.check_circle
-                                      : Icons.cancel,
+                                  isCorrect ? Icons.check_circle : Icons.cancel,
                                   color: isCorrect ? Colors.green : Colors.red,
                                 ),
                             ],
@@ -373,8 +340,6 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
             ),
           ),
-
-          // Next Button
           if (_answered)
             Padding(
               padding: const EdgeInsets.all(16),
@@ -386,9 +351,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
                   child: Text(
-                    _currentQuestion == _questions.length - 1
-                        ? 'Finish'
-                        : 'Next',
+                    _currentQuestion == _questions.length - 1 ? 'Finish' : 'Next',
                   ),
                 ),
               ),

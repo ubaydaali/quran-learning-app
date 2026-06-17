@@ -22,7 +22,6 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Profile Header
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(24),
@@ -66,13 +65,10 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-
-                // Stats Cards
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     children: [
-                      // Overall Score
                       Container(
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
@@ -126,8 +122,6 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 12),
-
-                      // Completed Surahs
                       Container(
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
@@ -170,8 +164,6 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-
-                // Progress History
                 if (allProgress.isNotEmpty)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -290,67 +282,6 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-
-                const SizedBox(height: 24),
-
-                // Action Buttons
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  'Share feature coming soon!',
-                                ),
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.share),
-                          label: const Text('Share Progress'),
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      SizedBox(
-                        width: double.infinity,
-                        child: OutlinedButton.icon(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: const Text('About'),
-                                content: const Text(
-                                  'Quran Learning App v1.0.0\n\n'
-                                  'An open-source application to help foreigners learn the Quran.\n\n'
-                                  'Made with ❤️ for Islamic education.',
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: const Text('Close'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.info_outline),
-                          label: const Text('About App'),
-                          style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
                 const SizedBox(height: 24),
               ],
             ),
